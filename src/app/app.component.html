@@ -1,0 +1,37 @@
+<header class="app-header">
+</header>
+<div class="app-main">
+  <div class="app-main__form">
+    <h2>Nuevo Producto</h2>
+    <form [formGroup]="formProduct" (ngSubmit)="submit()">
+      <input class="app-main__form__item" [formControl]="name" type="text" placeholder="Nombre del Producto">
+      <textarea class="app-main__form__item" [formControl]="description" rows="5" placeholder="Descripcion"></textarea>
+      <input class="app-main__form__item" [formControl]="price" type="number" placeholder="Precio">
+      <input class="app-main__form__item" [formControl]="stock" type="number" placeholder="Stock">
+      <div class="app-main__form__btn-container">
+        <button type="button" class="app-main__form__btn cancel" (click)="cancel()">
+          Cancelar
+        </button>
+        <button [disabled]="!formProduct.valid" type="submit" class="app-main__form__btn">
+          Añadir
+        </button>
+      </div>
+    </form>
+  </div>
+  <hr>
+  <div class="app-main__products">
+    <h2>Lista de Productos</h2>
+    <div>
+      <ng-container *ngFor="let product of products; let i = index;">
+        <div class="box-product" (click)="updateProduct(i)">
+          <div class="box-product__item">Nombre: {{ product.name }}</div>
+          <div class="box-product__item">Descripción: {{ product.description }}</div>
+          <div class="box-product__item">Precio: {{ product.price }}</div>
+          <div class="box-product__item">Stock: {{ product.stock }}</div>
+          <div class="box-product__item" [ngClass]="{'active': product.state, 'inactive': !product.state}">{{
+            product.state ? 'ACTIVO' : 'INACTIVO' }}</div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
